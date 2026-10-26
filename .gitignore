@@ -1,0 +1,8 @@
+node_modules/
+.vscode/
+dist/
+release/
+public/config.local.json
+*.log
+diagnostics*.json
+*.har

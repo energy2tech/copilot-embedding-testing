@@ -1,0 +1,6 @@
+{
+  "tenantId": "YOUR-ENTRA-TENANT-ID",
+  "clientId": "YOUR-APP-CLIENT-ID",
+  "workspaceId": "YOUR-WORKSPACE-ID",
+  "reportId": "YOUR-REPORT-ID"
+}
