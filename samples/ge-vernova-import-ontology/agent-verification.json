@@ -1,0 +1,127 @@
+{
+  "workspaceId": "aeeddd08-ac34-4681-b9cd-c84424c97f3e",
+  "ontologyId": "b1c05201-f4d8-4df2-900d-f3993c86c912",
+  "dataAgentId": "664cedb7-472e-485c-a77b-70b47a18f878",
+  "semanticModelId": "706c0186-18e0-4e89-aec6-e374518c6049",
+  "verificationMethod": "Supported Fabric browser UI: response, completed analysis step, Show input, and actual output table",
+  "sourceSemanticModelRemainsImport": true,
+  "tests": [
+    {
+      "id": "fleet-generation",
+      "stage": "draft",
+      "period": {
+        "from": "2026-01-01",
+        "to": "2026-03-31"
+      },
+      "question": "Using GE_Vernova_Fleet_Ontology and its connected GE Vernova Fleet Performance (Import) semantic model, what is the exact total generation in MWh for January 1 through March 31, 2026? Use the model's Total Generation MWh measure, execute a query, and identify the source used.",
+      "expectedMWh": 4278237,
+      "actualMWh": 4278237,
+      "passed": true,
+      "responseOntologyCitation": "GE_Vernova_Fleet_Ontology",
+      "executionSource": "GE Vernova Fleet Performance (Import) SemanticModel",
+      "dax": "EVALUATE\nROW(\n    \"Total Generation MWh\", CALCULATE(\n        [Total Generation MWh],\n        KEEPFILTERS(FILTER(ALL('Date'[Date]), 'Date'[Date] >= DATE(2026, 1, 1) && 'Date'[Date] <= DATE(2026, 3, 31)))\n    )\n)",
+      "output": [
+        {
+          "Total Generation MWh": 4278237
+        }
+      ]
+    }
+  ],
+  "publication": {
+    "successObservedInUi": true,
+    "publishedOntologyReferenceVerifiedInExport": true,
+    "publishedDomainInstructionsVerifiedInExport": true,
+    "publishedResponseVerified": true
+  },
+  "publishedAcceptance": {
+    "checksPassed": 5,
+    "fleetGenerationMWh": 4278237,
+    "januaryGenerationBySiteMWh": {
+      "Coastal Horizon": 246279,
+      "Desert Vista": 247493,
+      "Highland Point": 244060,
+      "Lakeside": 244998,
+      "Prairie Ridge": 244996,
+      "Riverbend": 245724
+    },
+    "januaryGenerationDax": "EVALUATE\nSUMMARIZECOLUMNS(\n    'Site'[Site Name],\n    KEEPFILTERS(FILTER(ALL('Date'[Date]), 'Date'[Date] >= DATE(2026, 1, 1) && 'Date'[Date] <= DATE(2026, 1, 31))),\n    \"Total Generation MWh\", [Total Generation MWh]\n)\nORDER BY 'Site'[Site Name]",
+    "januaryTopDowntimeTurbines": [
+      {"Turbine Name": "Turbine 05", "Downtime Hours": 80},
+      {"Turbine Name": "Turbine 11", "Downtime Hours": 80},
+      {"Turbine Name": "Turbine 17", "Downtime Hours": 80},
+      {"Turbine Name": "Turbine 23", "Downtime Hours": 80},
+      {"Turbine Name": "Turbine 04", "Downtime Hours": 79}
+    ],
+    "maintenanceBySite": {
+      "Coastal Horizon": {"Maintenance Cost": 62142, "Maintenance Event Count": 12},
+      "Desert Vista": {"Maintenance Cost": 54870, "Maintenance Event Count": 12},
+      "Highland Point": {"Maintenance Cost": 75294, "Maintenance Event Count": 12},
+      "Lakeside": {"Maintenance Cost": 52446, "Maintenance Event Count": 12},
+      "Prairie Ridge": {"Maintenance Cost": 55566, "Maintenance Event Count": 12},
+      "Riverbend": {"Maintenance Cost": 68718, "Maintenance Event Count": 12}
+    },
+    "capacityFactorBySitePercent": {
+      "Coastal Horizon": 60.111869,
+      "Desert Vista": 60.145960,
+      "Highland Point": 59.960606,
+      "Lakeside": 59.936869,
+      "Prairie Ridge": 60.017424,
+      "Riverbend": 59.948232
+    },
+    "initialJanuaryBatchAttempt": {
+      "status": "No answer",
+      "actualOutput": "(no answer produced)",
+      "daxVisible": false,
+      "agentReportedMissingAnswerRatherThanInventingValues": true
+    },
+    "januaryStandaloneRetry": {
+      "status": "Pass",
+      "question": "Using the connected semantic model, compute Total Generation MWh by Site Name for January 1 through January 31, 2026 inclusive. Use the existing measure and return all six sites.",
+      "allSixOutputRowsInspected": true,
+      "daxInputInspected": true
+    }
+  },
+  "controlledLiveChange": {
+    "sourceChange": "Only AdjustmentMWh changed from 0 to 10 in the existing Daily Generation Import partition; original full definition restored afterward",
+    "localFixturesLeftAtBaseline": true,
+    "period": {"from": "2026-01-01", "to": "2026-03-31"},
+    "baselineMWh": 4278237,
+    "changedRefreshRequestId": "6c745456-f882-4fb7-a29a-e375439f0df8",
+    "changedRefreshStatus": "Completed",
+    "changedDirectModelMWh": 4278247,
+    "changedPublishedAgentMWh": 4278247,
+    "changedActualExecutionOutputMWh": 4278247,
+    "changedDax": "EVALUATE\nROW(\n    \"Total Generation MWh\",\n    CALCULATE(\n        [Total Generation MWh],\n        KEEPFILTERS(FILTER(ALL('Date'[Date]), 'Date'[Date] >= DATE(2026, 1, 1) && 'Date'[Date] <= DATE(2026, 3, 31)))\n    )\n)",
+    "ontologyRegenerated": false,
+    "agentRepublishedForChange": false,
+    "restorationRefreshRequestId": "58cb7fe4-d5b9-412d-b112-45e1460ac338",
+    "restorationRefreshStatus": "Completed",
+    "restoredDirectModelMeasures": {
+      "Total Generation MWh": 4278237,
+      "Downtime Hours": 5400,
+      "Maintenance Cost": 369036,
+      "Maintenance Event Count": 72,
+      "Turbine Count": 24
+    },
+    "restoredPublishedAgentMeasures": {
+      "Total Generation MWh": 4278237,
+      "Downtime Hours": 5400,
+      "Maintenance Cost": 369036,
+      "Maintenance Event Count": 72,
+      "Turbine Count": 24
+    },
+    "postRestorationImportPartitionsVerified": 5,
+    "generationAdjustmentRestoredToZero": true,
+    "capacityAssignmentUnchanged": true,
+    "metadataCheckedAtUtc": "2026-11-05T17:48:06.4540705Z",
+    "passed": true
+  },
+  "limitations": [
+    "Observed tenant experiment; preview behavior and conflicting public support documentation remain",
+    "Explicit ontology entity keys were not configured",
+    "One batch subquestion initially produced no answer; standalone retry succeeded",
+    "Transient network errors interrupted a verification rerun; subsequent six direct-model checks passed",
+    "Additional conversational prompts and exhaustive report interactions were not acceptance-tested"
+  ],
+  "remainingRequiredValidation": []
+}

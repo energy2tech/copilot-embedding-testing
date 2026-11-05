@@ -1,0 +1,58 @@
+/// Synthetic demo only. 72 rows; see README for grain and metric definitions.
+table 'Maintenance Event'
+
+	/// Synthetic maintenance cost in USD, attributed to the event date, including open events.
+	measure 'Maintenance Cost' = SUM('Maintenance Event'[Cost USD])
+		formatString: $#,##0
+
+	/// Number of synthetic maintenance events, including open events.
+	measure 'Maintenance Event Count' = COUNTROWS('Maintenance Event')
+		formatString: #,##0
+
+	column 'MaintenanceEventId'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: MaintenanceEventId
+
+	column 'TurbineId'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: TurbineId
+
+	column 'DateKey'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: DateKey
+
+	column 'Category'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Category
+
+	column 'Status'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Status
+
+	column 'Cost USD'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Cost USD
+
+	partition 'Maintenance Event' = m
+		mode: import
+		source =
+			let
+			    Rows = List.Transform({1..72}, (e) => {
+			        e, Number.Mod(e-1,24)+1, Number.Mod(e*7,90)+1,
+			        {"Inspection","Preventive","Corrective"}{Number.Mod(e,3)},
+			        if Number.Mod(e,5)=0 then "Open" else "Completed", 1000+Number.Mod(e*137,9000)
+			    }),
+			    Source = #table(type table [MaintenanceEventId=Int64.Type, TurbineId=Int64.Type,
+			        DateKey=Int64.Type, Category=text, Status=text, #"Cost USD"=Int64.Type], Rows)
+			in
+			    Source

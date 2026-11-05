@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "fleet02",
+  "position": {
+    "x": 820,
+    "y": 130,
+    "z": 2,
+    "height": 150,
+    "width": 380,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Turbine"
+                    }
+                  },
+                  "Property": "Turbine Count"
+                }
+              },
+              "queryRef": "Turbine.Turbine Count",
+              "nativeQueryRef": "Turbine Count"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

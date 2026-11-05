@@ -1,0 +1,77 @@
+{
+  "period": {
+    "from": "2026-01-01",
+    "to": "2026-03-31"
+  },
+  "fleet": {
+    "Total Generation MWh": 4278237,
+    "Downtime Hours": 5400,
+    "Maintenance Cost": 369036,
+    "Maintenance Event Count": 72,
+    "Turbine Count": 24
+  },
+  "january_generation_by_site": {
+    "Coastal Horizon": 246279,
+    "Desert Vista": 247493,
+    "Highland Point": 244060,
+    "Lakeside": 244998,
+    "Prairie Ridge": 244996,
+    "Riverbend": 245724
+  },
+  "january_top_downtime_turbines": [
+    {
+      "Turbine Name": "Turbine 05",
+      "Downtime Hours": 80
+    },
+    {
+      "Turbine Name": "Turbine 11",
+      "Downtime Hours": 80
+    },
+    {
+      "Turbine Name": "Turbine 17",
+      "Downtime Hours": 80
+    },
+    {
+      "Turbine Name": "Turbine 23",
+      "Downtime Hours": 80
+    },
+    {
+      "Turbine Name": "Turbine 04",
+      "Downtime Hours": 79
+    }
+  ],
+  "maintenance_by_site": {
+    "Coastal Horizon": {
+      "Maintenance Cost": 62142,
+      "Maintenance Event Count": 12
+    },
+    "Desert Vista": {
+      "Maintenance Cost": 54870,
+      "Maintenance Event Count": 12
+    },
+    "Highland Point": {
+      "Maintenance Cost": 75294,
+      "Maintenance Event Count": 12
+    },
+    "Lakeside": {
+      "Maintenance Cost": 52446,
+      "Maintenance Event Count": 12
+    },
+    "Prairie Ridge": {
+      "Maintenance Cost": 55566,
+      "Maintenance Event Count": 12
+    },
+    "Riverbend": {
+      "Maintenance Cost": 68718,
+      "Maintenance Event Count": 12
+    }
+  },
+  "capacity_factor_by_site": {
+    "Coastal Horizon": 0.6011186868686869,
+    "Desert Vista": 0.601459595959596,
+    "Highland Point": 0.5996060606060606,
+    "Lakeside": 0.5993686868686868,
+    "Prairie Ridge": 0.6001742424242424,
+    "Riverbend": 0.5994823232323232
+  }
+}

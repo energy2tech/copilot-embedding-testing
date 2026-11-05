@@ -1,0 +1,24 @@
+relationship FleetRelationship1
+	fromColumn: 'Turbine'.'SiteId'
+	toColumn: 'Site'.'SiteId'
+	crossFilteringBehavior: oneDirection
+
+relationship FleetRelationship2
+	fromColumn: 'Daily Generation'.'TurbineId'
+	toColumn: 'Turbine'.'TurbineId'
+	crossFilteringBehavior: oneDirection
+
+relationship FleetRelationship3
+	fromColumn: 'Daily Generation'.'DateKey'
+	toColumn: 'Date'.'DateKey'
+	crossFilteringBehavior: oneDirection
+
+relationship FleetRelationship4
+	fromColumn: 'Maintenance Event'.'TurbineId'
+	toColumn: 'Turbine'.'TurbineId'
+	crossFilteringBehavior: oneDirection
+
+relationship FleetRelationship5
+	fromColumn: 'Maintenance Event'.'DateKey'
+	toColumn: 'Date'.'DateKey'
+	crossFilteringBehavior: oneDirection

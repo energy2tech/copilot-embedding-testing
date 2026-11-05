@@ -1,0 +1,47 @@
+/// Synthetic demo only. 24 rows; see README for grain and metric definitions.
+table 'Turbine'
+
+	/// Number of synthetic fleet turbines in the current site/turbine scope.
+	measure 'Turbine Count' = COUNTROWS('Turbine')
+		formatString: #,##0
+
+	column 'TurbineId'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: TurbineId
+
+	column 'SiteId'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: SiteId
+
+	column 'Turbine Name'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Turbine Name
+
+	column 'Technology'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Technology
+
+	column 'Rated MW'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Rated MW
+
+	partition 'Turbine' = m
+		mode: import
+		source =
+			let
+			    Rows = List.Transform({1..24}, (i) => {
+			        i, Number.IntegerDivide(i-1,4)+1, "Turbine " & Text.PadStart(Text.From(i),2,"0"),
+			        "Synthetic gas turbine", 100 + Number.Mod(i,4)*25
+			    }),
+			    Source = #table(type table [TurbineId=Int64.Type, SiteId=Int64.Type,
+			        #"Turbine Name"=text, Technology=text, #"Rated MW"=Int64.Type], Rows)
+			in
+			    Source

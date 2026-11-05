@@ -1,0 +1,41 @@
+{
+  "note": "Ontology internal DirectQuery-to-AS partitions reference the original Import semantic model; source storage mode is unchanged.",
+  "semanticModelId": "706c0186-18e0-4e89-aec6-e374518c6049",
+  "ontologyInstanceEntity": "Turbine",
+  "checkedAtUtc": "2026-11-05T17:25:19.5101570Z",
+  "ontologyId": "b1c05201-f4d8-4df2-900d-f3993c86c912",
+  "ontologyInstanceRowsObserved": 4,
+  "sourceTables": [
+    {
+      "partitionModes": [
+        "import"
+      ],
+      "path": "definition/tables/Site.tmdl"
+    },
+    {
+      "partitionModes": [
+        "import"
+      ],
+      "path": "definition/tables/Turbine.tmdl"
+    },
+    {
+      "partitionModes": [
+        "import"
+      ],
+      "path": "definition/tables/Date.tmdl"
+    },
+    {
+      "partitionModes": [
+        "import"
+      ],
+      "path": "definition/tables/Daily Generation.tmdl"
+    },
+    {
+      "partitionModes": [
+        "import"
+      ],
+      "path": "definition/tables/Maintenance Event.tmdl"
+    }
+  ],
+  "allSourcePartitionsRemainImport": true
+}

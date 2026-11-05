@@ -1,0 +1,156 @@
+{
+  "workspaceId": "aeeddd08-ac34-4681-b9cd-c84424c97f3e",
+  "modelId": "706c0186-18e0-4e89-aec6-e374518c6049",
+  "verifiedAtUtc": "2026-11-05T17:47:18.031912+00:00",
+  "scope": "Direct semantic-model DAX only; NOT evidence of ontology or data-agent grounding.",
+  "checks": {
+    "row_counts": {
+      "status": "Pass",
+      "query": "EVALUATE ROW(\n        \"Site\", COUNTROWS('Site'), \"Turbine\", COUNTROWS('Turbine'),\n        \"Date\", COUNTROWS('Date'), \"Daily Generation\", COUNTROWS('Daily Generation'),\n        \"Maintenance Event\", COUNTROWS('Maintenance Event'))",
+      "actual": [
+        {
+          "Site": 6,
+          "Turbine": 24,
+          "Date": 90,
+          "Daily Generation": 2160,
+          "Maintenance Event": 72
+        }
+      ]
+    },
+    "fleet": {
+      "status": "Pass",
+      "query": "EVALUATE ROW(\n        \"Total Generation MWh\", [Total Generation MWh], \"Downtime Hours\", [Downtime Hours],\n        \"Maintenance Cost\", [Maintenance Cost], \"Maintenance Event Count\", [Maintenance Event Count],\n        \"Turbine Count\", [Turbine Count])",
+      "actual": [
+        {
+          "Total Generation MWh": 4278237,
+          "Downtime Hours": 5400,
+          "Maintenance Cost": 369036,
+          "Maintenance Event Count": 72,
+          "Turbine Count": 24
+        }
+      ]
+    },
+    "january_generation_by_site": {
+      "status": "Pass",
+      "query": "EVALUATE SUMMARIZECOLUMNS(\n        'Site'[Site Name], TREATAS({1}, 'Date'[Month Number]),\n        \"Generation MWh\", [Total Generation MWh])\n        ORDER BY 'Site'[Site Name] ASC",
+      "actual": [
+        {
+          "Site Name": "Coastal Horizon",
+          "Generation MWh": 246279
+        },
+        {
+          "Site Name": "Desert Vista",
+          "Generation MWh": 247493
+        },
+        {
+          "Site Name": "Highland Point",
+          "Generation MWh": 244060
+        },
+        {
+          "Site Name": "Lakeside",
+          "Generation MWh": 244998
+        },
+        {
+          "Site Name": "Prairie Ridge",
+          "Generation MWh": 244996
+        },
+        {
+          "Site Name": "Riverbend",
+          "Generation MWh": 245724
+        }
+      ]
+    },
+    "january_top_downtime_turbines": {
+      "status": "Pass",
+      "query": "EVALUATE TOPN(5, SUMMARIZECOLUMNS(\n        'Turbine'[Turbine Name], TREATAS({1}, 'Date'[Month Number]),\n        \"Downtime Hours\", [Downtime Hours]),\n        [Downtime Hours], DESC, 'Turbine'[Turbine Name], ASC)\n        ORDER BY [Downtime Hours] DESC, 'Turbine'[Turbine Name] ASC",
+      "actual": [
+        {
+          "Turbine Name": "Turbine 05",
+          "Downtime Hours": 80
+        },
+        {
+          "Turbine Name": "Turbine 11",
+          "Downtime Hours": 80
+        },
+        {
+          "Turbine Name": "Turbine 17",
+          "Downtime Hours": 80
+        },
+        {
+          "Turbine Name": "Turbine 23",
+          "Downtime Hours": 80
+        },
+        {
+          "Turbine Name": "Turbine 04",
+          "Downtime Hours": 79
+        }
+      ]
+    },
+    "maintenance_by_site": {
+      "status": "Pass",
+      "query": "EVALUATE SUMMARIZECOLUMNS('Site'[Site Name],\n        \"Maintenance Cost\", [Maintenance Cost], \"Maintenance Event Count\", [Maintenance Event Count])\n        ORDER BY 'Site'[Site Name] ASC",
+      "actual": [
+        {
+          "Site Name": "Coastal Horizon",
+          "Maintenance Cost": 62142,
+          "Maintenance Event Count": 12
+        },
+        {
+          "Site Name": "Desert Vista",
+          "Maintenance Cost": 54870,
+          "Maintenance Event Count": 12
+        },
+        {
+          "Site Name": "Highland Point",
+          "Maintenance Cost": 75294,
+          "Maintenance Event Count": 12
+        },
+        {
+          "Site Name": "Lakeside",
+          "Maintenance Cost": 52446,
+          "Maintenance Event Count": 12
+        },
+        {
+          "Site Name": "Prairie Ridge",
+          "Maintenance Cost": 55566,
+          "Maintenance Event Count": 12
+        },
+        {
+          "Site Name": "Riverbend",
+          "Maintenance Cost": 68718,
+          "Maintenance Event Count": 12
+        }
+      ]
+    },
+    "capacity_factor_by_site": {
+      "status": "Pass",
+      "query": "EVALUATE SUMMARIZECOLUMNS('Site'[Site Name],\n        \"Capacity Factor\", [Capacity Factor %])\n        ORDER BY 'Site'[Site Name] ASC",
+      "actual": [
+        {
+          "Site Name": "Coastal Horizon",
+          "Capacity Factor": 0.6011186868686869
+        },
+        {
+          "Site Name": "Desert Vista",
+          "Capacity Factor": 0.601459595959596
+        },
+        {
+          "Site Name": "Highland Point",
+          "Capacity Factor": 0.5996060606060606
+        },
+        {
+          "Site Name": "Lakeside",
+          "Capacity Factor": 0.5993686868686868
+        },
+        {
+          "Site Name": "Prairie Ridge",
+          "Capacity Factor": 0.6001742424242424
+        },
+        {
+          "Site Name": "Riverbend",
+          "Capacity Factor": 0.5994823232323232
+        }
+      ]
+    }
+  }
+}

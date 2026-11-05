@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "generation02",
+  "position": {
+    "x": 650,
+    "y": 305,
+    "z": 2,
+    "height": 390,
+    "width": 610,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Turbine"
+                    }
+                  },
+                  "Property": "Turbine Name"
+                }
+              },
+              "queryRef": "Turbine.Turbine Name",
+              "nativeQueryRef": "Turbine Name"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Daily Generation"
+                    }
+                  },
+                  "Property": "Downtime Hours"
+                }
+              },
+              "queryRef": "Daily Generation.Downtime Hours",
+              "nativeQueryRef": "Downtime Hours"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

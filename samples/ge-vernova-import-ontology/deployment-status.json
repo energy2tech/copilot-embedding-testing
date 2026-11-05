@@ -1,0 +1,111 @@
+{
+  "scope": "Synthetic GE Vernova-style Import semantic model to ontology to data agent experiment",
+  "overallStatus": "Import model to ontology to published data agent verified: five acceptance cases and controlled +10 MWh refresh passed; original baseline restored",
+  "endToEndClaimProven": true,
+  "claimScope": "Observed experiment in this tenant, not a universal platform support or production-readiness guarantee",
+  "baselineImportOntologyAgentPathVerified": true,
+  "workspace": {
+    "id": "aeeddd08-ac34-4681-b9cd-c84424c97f3e",
+    "name": "GE Vernova - Import Ontology Demo"
+  },
+  "capacity": {
+    "id": "a8134eba-73e0-4e10-bd84-bae61df58b4a",
+    "name": "f64centralus001",
+    "sku": "F64",
+    "region": "Central US",
+    "stateAtResumeVerification": "Active",
+    "leftRunningWithUserAuthorization": true,
+    "billingContinues": true
+  },
+  "semanticModel": {
+    "id": "706c0186-18e0-4e89-aec6-e374518c6049",
+    "name": "GE Vernova Fleet Performance (Import)",
+    "serviceSideImportPartitionsVerified": 5,
+    "refreshStatus": "Completed",
+    "refreshRequestId": "58cb7fe4-d5b9-412d-b112-45e1460ac338",
+    "refreshCompletedAtUtc": null,
+    "baselineRestorationVerified": true,
+    "postRestorationImportPartitionsVerified": 5,
+    "postRestorationMetadataCheckedAtUtc": "2026-11-05T17:48:06.4540705Z",
+    "capacityAssignmentUnchanged": true,
+    "directDaxChecksPassed": 6,
+    "evidence": "model-verification.json"
+  },
+  "report": {
+    "id": "dd3b251a-2e5e-4c71-8524-6c401550ef97",
+    "name": "GE Vernova Fleet Performance (Import)",
+    "published": true,
+    "modelBindingVerified": true,
+    "visualRenderingVerified": true,
+    "fleetOverviewRenderingObserved": true,
+    "pagesObserved": ["Fleet Overview", "Generation & Availability", "Maintenance"],
+    "representativeSiteAndMonthSlicersVerified": true,
+    "filtersRestoredToDefaults": true,
+    "exhaustiveInteractionCoverage": false
+  },
+  "ontology": {
+    "name": "GE_Vernova_Fleet_Ontology",
+    "id": "b1c05201-f4d8-4df2-900d-f3993c86c912",
+    "created": true,
+    "proposalConfirmedByUser": true,
+    "creationMethod": "Semantic model Generate Ontology UI",
+    "semanticModelSourceReferencesVerified": 5,
+    "externalMeasuresVerified": 6,
+    "relationshipsVerified": 5,
+    "populatedTurbineInstanceRowsObserved": 4,
+    "explicitEntityKeysConfigured": false,
+    "definitionEvidence": "ontology-definition.json",
+    "sourceModeEvidence": "ontology-binding-verification.json",
+    "uiObservations": {
+      "browserAutomationAvailable": true,
+      "targetTenantWorkspaceAccessVerified": true,
+      "generateOntologyInInspectedModelMenus": true,
+      "newItemOntologySearchResult": "Ontology (preview)",
+      "dataAgentCreationItemVisible": true,
+      "tenantSettingsVisibleInAdminNavigation": false
+    },
+    "publicApiCreationAttempt": "Not performed: user explicitly declined"
+  },
+  "dataAgent": {
+    "name": "GE Vernova Fleet Advisor",
+    "id": "664cedb7-472e-485c-a77b-70b47a18f878",
+    "created": true,
+    "published": true,
+    "runtime": "Standard",
+    "publishedToMicrosoftCopilot": false,
+    "ontologyContextVerified": true,
+    "selectedOntologyEntities": 5,
+    "associatedModelVisibleUnderOntologyDataSources": true,
+    "draftAndPublishedOntologyReferencesVerified": true,
+    "daxExecutionTraceVerified": true,
+    "draftGenerationAnswer": 4278237,
+    "draftGenerationAnswerMatchesFixture": true,
+    "publishedResponseVerified": true,
+    "publishedAcceptanceChecksPassed": 5,
+    "initialEmptyBatchResponseCount": 1,
+    "standaloneRetrySucceeded": true,
+    "publishedRestoredBaselineMeasuresVerified": true,
+    "definitionEvidence": "data-agent-definition.json",
+    "queryEvidence": "agent-verification.json"
+  },
+  "controlledDataChange": {
+    "localGeneratorTestPassed": true,
+    "liveEndToEndTestPerformed": true,
+    "baselineMWh": 4278237,
+    "changedModelMWh": 4278247,
+    "changedPublishedAgentMWh": 4278247,
+    "restoredModelMWh": 4278237,
+    "restoredPublishedAgentMWh": 4278237,
+    "baselineRestored": true,
+    "evidence": "agent-verification.json"
+  },
+  "tenantSettings": {
+    "modifiedByAssistant": false,
+    "ontologyEnabledByUser": true,
+    "readAttempt": "403 InsufficientScopes; admin or UI verification required"
+  },
+  "knownDocumentationConflict": [
+    "https://learn.microsoft.com/fabric/iq/ontology/how-to-create-data-agent",
+    "https://learn.microsoft.com/fabric/data-science/data-agent-ontology-sources"
+  ]
+}

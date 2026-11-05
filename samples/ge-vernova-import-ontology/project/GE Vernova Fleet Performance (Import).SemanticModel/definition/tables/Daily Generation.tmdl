@@ -1,0 +1,62 @@
+/// Synthetic demo only. 2160 rows; see README for grain and metric definitions.
+table 'Daily Generation'
+
+	/// Synthetic electrical generation in megawatt-hours for the selected turbine-days.
+	measure 'Total Generation MWh' = SUM('Daily Generation'[Generation MWh])
+		formatString: #,##0
+
+	/// Aggregate turbine downtime hours over the selected turbine-days.
+	measure 'Downtime Hours' = SUM('Daily Generation'[Downtime Hours Raw])
+		formatString: #,##0
+
+	/// Generation divided by nameplate MW times 24 hours for each turbine-day in scope, including downtime.
+	measure 'Capacity Factor %' = DIVIDE([Total Generation MWh], SUMX('Daily Generation', RELATED('Turbine'[Rated MW]) * 24))
+		formatString: 0.00%
+
+	column 'GenerationId'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: GenerationId
+
+	column 'TurbineId'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: TurbineId
+
+	column 'DateKey'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: DateKey
+
+	column 'Generation MWh'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Generation MWh
+
+	column 'Downtime Hours Raw'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Downtime Hours
+
+	partition 'Daily Generation' = m
+		mode: import
+		source =
+			let
+			    AdjustmentMWh = 0,
+			    Rows = List.Combine(List.Transform({1..24}, (t) =>
+			        List.Transform({0..89}, (d) => let
+			            Downtime = Number.Mod(t+d,6),
+			            RatedMW = 100 + Number.Mod(t,4)*25,
+			            LoadPercent = 45 + Number.Mod(t*7+d*3,45),
+			            Generation = Number.IntegerDivide(RatedMW*(24-Downtime)*LoadPercent,100)
+			                + (if t=1 and d=0 then AdjustmentMWh else 0)
+			        in {(t-1)*90+d+1, t, d+1, Generation, Downtime}))),
+			    Source = #table(type table [GenerationId=Int64.Type, TurbineId=Int64.Type,
+			        DateKey=Int64.Type, #"Generation MWh"=Int64.Type, #"Downtime Hours"=Int64.Type], Rows)
+			in
+			    Source

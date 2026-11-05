@@ -1,0 +1,46 @@
+/// Synthetic demo only. 90 rows; see README for grain and metric definitions.
+table 'Date'
+
+	dataCategory: Time
+
+	column 'DateKey'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: DateKey
+
+	column 'Date'
+		dataType: dateTime
+		isKey
+		formatString: yyyy-MM-dd
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Month'
+		dataType: string
+		sortByColumn: 'Month Number'
+		summarizeBy: none
+		sourceColumn: Month
+
+	column 'Month Number'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Month Number
+
+	column 'Year'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Year
+
+	partition 'Date' = m
+		mode: import
+		source =
+			let
+			    Rows = List.Transform({0..89}, (d) => let Day = Date.AddDays(#date(2026,1,1),d)
+			        in {d+1, Day, Date.MonthName(Day,"en-US"), Date.Month(Day), Date.Year(Day)}),
+			    Source = #table(type table [DateKey=Int64.Type, Date=date, Month=text,
+			        #"Month Number"=Int64.Type, Year=Int64.Type], Rows)
+			in
+			    Source

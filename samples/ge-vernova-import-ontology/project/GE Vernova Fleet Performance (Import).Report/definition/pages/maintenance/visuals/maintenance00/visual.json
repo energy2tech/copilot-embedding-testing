@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "maintenance00",
+  "position": {
+    "x": 20,
+    "y": 130,
+    "z": 0,
+    "height": 150,
+    "width": 380,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Maintenance Event"
+                    }
+                  },
+                  "Property": "Maintenance Cost"
+                }
+              },
+              "queryRef": "Maintenance Event.Maintenance Cost",
+              "nativeQueryRef": "Maintenance Cost"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

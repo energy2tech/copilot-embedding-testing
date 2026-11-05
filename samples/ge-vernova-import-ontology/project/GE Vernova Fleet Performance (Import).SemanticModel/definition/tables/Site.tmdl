@@ -1,0 +1,29 @@
+/// Synthetic demo only. 6 rows; see README for grain and metric definitions.
+table 'Site'
+
+	column 'SiteId'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: SiteId
+
+	column 'Site Name'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Site Name
+
+	column 'Region'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Region
+
+	partition 'Site' = m
+		mode: import
+		source =
+			let
+			    Source = #table(type table [SiteId=Int64.Type, #"Site Name"=text, Region=text], {
+			        {1,"Prairie Ridge","Central"}, {2,"Coastal Horizon","East"}, {3,"Riverbend","West"},
+			        {4,"Highland Point","Central"}, {5,"Desert Vista","East"}, {6,"Lakeside","West"}
+			    })
+			in
+			    Source

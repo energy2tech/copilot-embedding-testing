@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "maintenance01",
+  "position": {
+    "x": 420,
+    "y": 130,
+    "z": 1,
+    "height": 150,
+    "width": 380,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Maintenance Event"
+                    }
+                  },
+                  "Property": "Maintenance Event Count"
+                }
+              },
+              "queryRef": "Maintenance Event.Maintenance Event Count",
+              "nativeQueryRef": "Maintenance Event Count"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
