@@ -1,0 +1,147 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "eastus2"
+    },
+    "resourceGroupName": {
+      "type": "string",
+      "defaultValue": "rg-contoso-mfg-dbx-demo-eus2"
+    },
+    "workspaceName": {
+      "type": "string",
+      "defaultValue": "dbw-contoso-mfg-demo-eus2"
+    },
+    "managedResourceGroupName": {
+      "type": "string",
+      "defaultValue": "rg-contoso-mfg-dbx-managed-eus2"
+    },
+    "accessConnectorName": {
+      "type": "string",
+      "defaultValue": "ac-contoso-mfg-onelake-eus2"
+    }
+  },
+  "variables": {
+    "tags": {
+      "purpose": "manufacturing-onelake-demo",
+      "managedBy": "arm-template"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2025-04-01",
+      "name": "[parameters('resourceGroupName')]",
+      "location": "[parameters('location')]",
+      "tags": "[variables('tags')]"
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2025-04-01",
+      "name": "contoso-mfg-databricks-resources",
+      "resourceGroup": "[parameters('resourceGroupName')]",
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "workspaceName": {
+            "value": "[parameters('workspaceName')]"
+          },
+          "managedResourceGroupName": {
+            "value": "[parameters('managedResourceGroupName')]"
+          },
+          "accessConnectorName": {
+            "value": "[parameters('accessConnectorName')]"
+          },
+          "tags": {
+            "value": "[variables('tags')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {
+            "location": { "type": "string" },
+            "workspaceName": { "type": "string" },
+            "managedResourceGroupName": { "type": "string" },
+            "accessConnectorName": { "type": "string" },
+            "tags": { "type": "object" }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Databricks/workspaces",
+              "apiVersion": "2026-01-01",
+              "name": "[parameters('workspaceName')]",
+              "location": "[parameters('location')]",
+              "tags": "[parameters('tags')]",
+              "sku": { "name": "premium" },
+              "properties": {
+                "managedResourceGroupId": "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('managedResourceGroupName'))]",
+                "publicNetworkAccess": "Enabled",
+                "requiredNsgRules": "AllRules",
+                "parameters": {
+                  "enableNoPublicIp": { "value": true }
+                }
+              }
+            },
+            {
+              "type": "Microsoft.Databricks/accessConnectors",
+              "apiVersion": "2026-01-01",
+              "name": "[parameters('accessConnectorName')]",
+              "location": "[parameters('location')]",
+              "tags": "[parameters('tags')]",
+              "identity": { "type": "SystemAssigned" },
+              "properties": {}
+            }
+          ],
+          "outputs": {
+            "workspaceResourceId": {
+              "type": "string",
+              "value": "[resourceId('Microsoft.Databricks/workspaces', parameters('workspaceName'))]"
+            },
+            "workspaceUrl": {
+              "type": "string",
+              "value": "[concat('https://', reference(resourceId('Microsoft.Databricks/workspaces', parameters('workspaceName')), '2026-01-01').workspaceUrl)]"
+            },
+            "accessConnectorResourceId": {
+              "type": "string",
+              "value": "[resourceId('Microsoft.Databricks/accessConnectors', parameters('accessConnectorName'))]"
+            },
+            "accessConnectorPrincipalId": {
+              "type": "string",
+              "value": "[reference(resourceId('Microsoft.Databricks/accessConnectors', parameters('accessConnectorName')), '2026-01-01', 'Full').identity.principalId]"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "workspaceResourceId": {
+      "type": "string",
+      "value": "[reference('contoso-mfg-databricks-resources').outputs.workspaceResourceId.value]"
+    },
+    "workspaceUrl": {
+      "type": "string",
+      "value": "[reference('contoso-mfg-databricks-resources').outputs.workspaceUrl.value]"
+    },
+    "accessConnectorResourceId": {
+      "type": "string",
+      "value": "[reference('contoso-mfg-databricks-resources').outputs.accessConnectorResourceId.value]"
+    },
+    "accessConnectorPrincipalId": {
+      "type": "string",
+      "value": "[reference('contoso-mfg-databricks-resources').outputs.accessConnectorPrincipalId.value]"
+    }
+  }
+}

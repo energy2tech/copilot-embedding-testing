@@ -1,0 +1,4 @@
+msal>=1.31,<2
+deltalake>=1,<2
+pyarrow>=19,<24
+typing_extensions>=4.12,<5
