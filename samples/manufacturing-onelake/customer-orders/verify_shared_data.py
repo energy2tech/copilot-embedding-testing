@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import re
 import shutil
 import struct
 import subprocess
@@ -43,6 +44,19 @@ def canonical(rows):
     return sorted(tuple(normalize(value) for value in row) for row in rows)
 
 
+def validation_queries(catalog, schema, full_tables=False):
+    if any(not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", name) for name in (catalog, schema)):
+        raise ValueError("Catalog and schema must be simple SQL identifiers")
+    source = Path(__file__).with_name("validate.sql").read_text()
+    queries = [part.strip() for part in source.split(";") if part.strip()]
+    if full_tables:
+        queries.extend(f"SELECT * FROM manufacturing_demo.{table}" for table in EXPECTED_COUNTS)
+    return (
+        [query.replace("manufacturing_demo.", f"{schema}.") for query in queries],
+        [query.replace("manufacturing_demo.", f"{catalog}.{schema}.") for query in queries],
+    )
+
+
 def verify(args):
     cli = shutil.which("databricks") or args.databricks_cli
     az = shutil.which("az")
@@ -53,12 +67,7 @@ def verify(args):
         raise RuntimeError(f"{driver} is required")
     if any(character in args.fabric_server + args.database for character in ";{}"):
         raise ValueError("Invalid SQL connection target")
-    source = Path(__file__).with_name("validate.sql").read_text()
-    queries = [part.strip() for part in source.split(";") if part.strip()]
-    foreign_queries = [
-        query.replace("manufacturing_demo.", "contoso_mfg_onelake.manufacturing_demo.")
-        for query in queries
-    ]
+    queries, foreign_queries = validation_queries(args.catalog, args.schema, args.full_tables)
     results = command([
         cli, "experimental", "aitools", "tools", "query",
         "--warehouse", args.warehouse_id, "--profile", args.profile,
@@ -116,6 +125,10 @@ if __name__ == "__main__":
     parser.add_argument("--warehouse-id", required=True)
     parser.add_argument("--fabric-server", required=True)
     parser.add_argument("--database", default="manufacturing_lh")
+    parser.add_argument("--catalog", default="contoso_mfg_onelake")
+    parser.add_argument("--schema", default="manufacturing_demo")
+    parser.add_argument("--full-tables", action="store_true",
+                        help="Also compare every row from all eight sample tables")
     parser.add_argument("--databricks-cli", help="Explicit CLI path if not on PATH")
     parser.add_argument("--expected-customer-name", default="Fictional Customer 001")
     verify(parser.parse_args())

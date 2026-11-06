@@ -1,0 +1,56 @@
+{
+  "overallStatus": "Managed copies complete and verified; Fabric metadata mirroring blocked by disabled metastore external access",
+  "demoComplete": false,
+  "databricks": {
+    "profile": "contoso-mfg-demo",
+    "workspaceUrl": "https://adb-7405616494524712.12.azuredatabricks.net",
+    "metastoreId": "421b5c6c-9980-43d8-9d18-cafcdd0651be",
+    "metastoreName": "metastore_azure_eastus2",
+    "externalAccessEnabledAtLastVerification": false,
+    "externalAccessEnablementAttempt": "Rejected: User is not a metastore admin",
+    "administratorEnablementReportedByUser": true,
+    "reportedEnablementVerified": false,
+    "sourceCatalog": "contoso_mfg_onelake",
+    "sourceSchema": "manufacturing_demo",
+    "managedCatalog": "dbw_contoso_mfg_demo_eus2",
+    "managedSchema": "manufacturing_managed_demo",
+    "managedTablesVerified": 8,
+    "managedRowsVerified": 9323,
+    "fullSchemaComparisonsPassed": 8,
+    "bidirectionalExceptAllComparisonsPassed": 8,
+    "primaryKeyChecksPassed": 8,
+    "relationshipChecksPassed": 8,
+    "aggregateAndJoinChecksPassed": 8,
+    "originalSourceStableDuringCopy": true,
+    "schemaScopedReadAndExternalUseGrantsVerified": true,
+    "managedStorage": "Existing native ADLS managed storage, not original OneLake files",
+    "warehouseId": "26fbcb4ef42cecd7",
+    "warehouseAutoStopMinutes": 10,
+    "copyEvidence": "copy-verification.json"
+  },
+  "fabric": {
+    "plannedWorkspaceName": "Contoso Manufacturing - Databricks Metadata Mirroring Demo",
+    "workspaceCreated": false,
+    "plannedConnectionName": "contoso_mfg_metadata_mirroring_connection",
+    "plannedMirroredCatalogName": "contoso_mfg_managed_catalog_mirror",
+    "mirroredCatalogCreated": false,
+    "capacityId": "a8134eba-73e0-4e10-bd84-bae61df58b4a",
+    "capacityName": "f64centralus001",
+    "capacityStateAfterAuthorizedResume": "Active",
+    "capacityResumedWithUserAuthorization": true,
+    "billingContinues": true
+  },
+  "unperformedChecks": [
+    "Fabric organizational connection and schema-only mirrored catalog creation",
+    "Databricks managed tables versus Fabric SQL full-row verification",
+    "Reversible managed data update visible in Fabric",
+    "Automatic metadata probe table addition and removal"
+  ],
+  "localTestsPassed": 19,
+  "sharedVerifierRegression": {
+    "passed": true,
+    "queryComparisons": 16,
+    "scope": "Original Fabric Lakehouse versus original Databricks foreign tables; not a test of the uncreated managed-table Fabric mirror"
+  },
+  "nextAdministratorAction": "A metastore admin must enable External data access for metastore_azure_eastus2, ID 421b5c6c-9980-43d8-9d18-cafcdd0651be; verify the selected CLI profile reports external_access_enabled=true before proceeding"
+}

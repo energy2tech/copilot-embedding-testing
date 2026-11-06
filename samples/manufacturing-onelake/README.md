@@ -5,6 +5,13 @@ queried from Fabric and Unity Catalog foreign tables, use the separate
 [customer/order sample](customer-orders/README.md). The architecture and status
 below refer only to this original Azure Databricks Storage item sample.
 
+For a **one-time foreign-to-managed Delta copy using existing native ADLS storage
+and then Fabric metadata mirroring**, see
+[the metadata-mirroring sample](metadata-mirroring/README.md). Its eight managed
+tables are loaded and validated; Fabric mirror creation is blocked until a
+metastore administrator enables external data access. This is separate from
+both the original Databricks Storage design below and direct OneLake writes.
+
 Fictional Contoso Precision Manufacturing: three plants, 24 machines, 12 products,
 and 90 days (2026-07-01 through 2026-09-28). Eight tables contain exactly 100,089
 rows: 129 dimension rows and 99,960 fact rows. No real customer information.

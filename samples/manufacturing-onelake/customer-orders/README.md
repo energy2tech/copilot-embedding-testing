@@ -11,6 +11,12 @@ run the Databricks writer against the OneLake path, not `INSERT` or `MERGE` agai
 the foreign table name. A writable Unity Catalog external-location design uses
 an **Azure Databricks Storage** item instead; see the [parent sample](../README.md).
 
+For a **one-time copy into native Databricks managed Delta tables followed by
+Fabric metadata mirroring**, see the separate
+[managed-table metadata-mirroring sample](../metadata-mirroring/README.md).
+Its eight managed copies are verified; mirroring currently awaits metastore-admin
+external-access enablement. The foreign tables in this sample are unchanged.
+
 ## Provisioned demo
 
 - [Fabric workspace: contoso-mfg-demo](https://app.fabric.microsoft.com/groups/cb9f8a41-6acf-454f-a01d-b04576c90889/list), assigned to existing F64 capacity `f64centralus001`.
@@ -227,6 +233,10 @@ Driver 18 for SQL Server. Run [verify_shared_data.py](verify_shared_data.py) wit
 It uses Azure CLI authentication for Fabric SQL, executes all queries against
 both engines, compares every result row, and checks exact expected aggregates.
 Use `--databricks-cli` if the executable is not on PATH.
+
+The verifier also accepts `--catalog` and `--schema` for the managed-copy demo,
+and `--full-tables` to compare every row of all eight tables. Defaults preserve
+this original foreign-table demo.
 
 ## Official integration references
 
