@@ -1,0 +1,130 @@
+{
+  "index": "manufacturing-products",
+  "document_count": 10,
+  "pdf_count": 5,
+  "embedding_model": "text-embedding-3-small",
+  "dimensions": 1536,
+  "checks": [
+    {
+      "mode": "keyword",
+      "query": "centrifugal pump for clean process water",
+      "expected": "PUMP-100",
+      "top_product": "PUMP-100",
+      "source_file": "PUMP-100.pdf",
+      "page": 1
+    },
+    {
+      "mode": "vector",
+      "query": "centrifugal pump for clean process water",
+      "expected": "PUMP-100",
+      "top_product": "PUMP-100",
+      "source_file": "PUMP-100.pdf",
+      "page": 1
+    },
+    {
+      "mode": "hybrid",
+      "query": "centrifugal pump for clean process water",
+      "expected": "PUMP-100",
+      "top_product": "PUMP-100",
+      "source_file": "PUMP-100.pdf",
+      "page": 1
+    },
+    {
+      "mode": "keyword",
+      "query": "three phase conveyor electric motor",
+      "expected": "MOTOR-200",
+      "top_product": "MOTOR-200",
+      "source_file": "MOTOR-200.pdf",
+      "page": 1
+    },
+    {
+      "mode": "vector",
+      "query": "three phase conveyor electric motor",
+      "expected": "MOTOR-200",
+      "top_product": "MOTOR-200",
+      "source_file": "MOTOR-200.pdf",
+      "page": 1
+    },
+    {
+      "mode": "hybrid",
+      "query": "three phase conveyor electric motor",
+      "expected": "MOTOR-200",
+      "top_product": "MOTOR-200",
+      "source_file": "MOTOR-200.pdf",
+      "page": 1
+    },
+    {
+      "mode": "keyword",
+      "query": "pneumatic control valve with positioner",
+      "expected": "VALVE-300",
+      "top_product": "VALVE-300",
+      "source_file": "VALVE-300.pdf",
+      "page": 1
+    },
+    {
+      "mode": "vector",
+      "query": "pneumatic control valve with positioner",
+      "expected": "VALVE-300",
+      "top_product": "VALVE-300",
+      "source_file": "VALVE-300.pdf",
+      "page": 1
+    },
+    {
+      "mode": "hybrid",
+      "query": "pneumatic control valve with positioner",
+      "expected": "VALVE-300",
+      "top_product": "VALVE-300",
+      "source_file": "VALVE-300.pdf",
+      "page": 1
+    },
+    {
+      "mode": "keyword",
+      "query": "transfer heat between separated water circuits",
+      "expected": "HX-400",
+      "top_product": "HX-400",
+      "source_file": "HX-400.pdf",
+      "page": 1
+    },
+    {
+      "mode": "vector",
+      "query": "transfer heat between separated water circuits",
+      "expected": "HX-400",
+      "top_product": "HX-400",
+      "source_file": "HX-400.pdf",
+      "page": 1
+    },
+    {
+      "mode": "hybrid",
+      "query": "transfer heat between separated water circuits",
+      "expected": "HX-400",
+      "top_product": "HX-400",
+      "source_file": "HX-400.pdf",
+      "page": 1
+    },
+    {
+      "mode": "keyword",
+      "query": "bearing vibration condition monitoring sensor",
+      "expected": "SENSOR-500",
+      "top_product": "SENSOR-500",
+      "source_file": "SENSOR-500.pdf",
+      "page": 1
+    },
+    {
+      "mode": "vector",
+      "query": "bearing vibration condition monitoring sensor",
+      "expected": "SENSOR-500",
+      "top_product": "SENSOR-500",
+      "source_file": "SENSOR-500.pdf",
+      "page": 1
+    },
+    {
+      "mode": "hybrid",
+      "query": "bearing vibration condition monitoring sensor",
+      "expected": "SENSOR-500",
+      "top_product": "SENSOR-500",
+      "source_file": "SENSOR-500.pdf",
+      "page": 1
+    }
+  ],
+  "verified_at_utc": "2026-11-11T19:22:35Z"
+}

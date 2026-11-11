@@ -1,0 +1,80 @@
+{
+  "scope": "Synthetic GE Vernova Foundry prompt agent to published Fabric data agent",
+  "overallStatus": "Foundry resources and persistent prompt agent deployed; incoming Entra user context authorized; all five live acceptance cases passed",
+  "endToEndClaimProven": true,
+  "tenantId": "21ddafdf-7740-4439-9b4a-6246817b2dfc",
+  "subscriptionId": "c2eaee16-e4b6-4608-b937-9005553d66f7",
+  "resourceGroup": "rg-ge-vernova-foundry",
+  "region": "centralus",
+  "foundry": {
+    "account": "ai-ge-vernova-c2eaee16",
+    "project": "ge-vernova-fleet",
+    "endpoint": "https://ai-ge-vernova-c2eaee16.services.ai.azure.com/api/projects/ge-vernova-fleet",
+    "provisioningState": "Succeeded",
+    "publicNetworkAccess": "Enabled",
+    "localKeyAuthenticationEnabled": false,
+    "model": {
+      "deployment": "gpt-4.1-mini",
+      "version": "2025-04-14",
+      "sku": "DataZoneStandard",
+      "capacity": 10,
+      "provisioningState": "Succeeded"
+    },
+    "agent": {
+      "name": "ge-vernova-fleet-advisor",
+      "version": "1",
+      "state": "enabled",
+      "type": "prompt",
+      "toolType": "fabric_iq_preview",
+      "definitionReadBackVerified": true,
+      "runtimeFoundryUserRoleScopedToProject": true
+    }
+  },
+  "fabric": {
+    "workspaceId": "aeeddd08-ac34-4681-b9cd-c84424c97f3e",
+    "dataAgentId": "664cedb7-472e-485c-a77b-70b47a18f878",
+    "publishedDefinitionPartsVerified": true,
+    "capacityName": "f64centralus001",
+    "capacityStateAtStart": "Active",
+    "capacityStateAtCompletion": "Active",
+    "capacityResumedByThisTask": false,
+    "capacityAssignmentChanged": false,
+    "sourceDataChanged": false
+  },
+  "connection": {
+    "name": "ge-vernova-fabric",
+    "authType": "UserEntraToken",
+    "audience": "https://analysis.windows.net/powerbi/api",
+    "scopes": [
+      "https://analysis.windows.net/powerbi/api/DataAgent.Execute.All"
+    ],
+    "savedObjectVerified": true,
+    "authorizationVerified": true,
+    "authorizationMode": "Incoming delegated user context; each caller requires Fabric source permissions"
+  },
+  "verification": {
+    "localTestsPassed": 4,
+    "liveAcceptanceCasesPassed": 5,
+    "completed": true,
+    "evidence": "verification.json",
+    "pythonCompilePassed": true,
+    "powerShellParsePassed": true,
+    "dependencyCheckPassed": true
+  },
+  "resolvedHistoricalErrors": [
+    {
+      "operation": "Foundry connection listConsentLinks",
+      "code": "ConnectorNamespaceConnectionNotFound",
+      "message": "Creating the OAuth2 RemoteTool object did not establish its gateway authorization.",
+      "resolution": "Replaced with the user-approved UserEntraToken connection; successful live Fabric calls verified."
+    },
+    {
+      "operation": "Foundry agent response with Fabric IQ tool",
+      "httpStatus": 400,
+      "code": "tool_user_error",
+      "resolution": "Authorized incoming user context; all five live cases passed."
+    }
+  ],
+  "additionalPaidServicesProvisioned": [],
+  "secretsRecorded": false
+}

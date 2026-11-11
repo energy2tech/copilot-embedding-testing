@@ -40,6 +40,8 @@ The target capacity was resumed with permission and is left **running and billab
 
 ## Local project
 
+For the separate Microsoft Foundry prompt-agent integration, provisioning scripts, authentication requirements, and end-to-end checks, see [Foundry integration](./foundry/README.md). Its verification is separate from the historical Fabric-only evidence below.
+
 From this directory:
 
 ```powershell

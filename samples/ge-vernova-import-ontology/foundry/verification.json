@@ -1,0 +1,259 @@
+{
+  "verifiedAtUtc": "2026-11-11T18:45:35.284849+00:00",
+  "agent": "ge-vernova-fleet-advisor",
+  "fabricEndpoint": "https://api.fabric.microsoft.com/v1/mcp/workspaces/aeeddd08-ac34-4681-b9cd-c84424c97f3e/dataagents/664cedb7-472e-485c-a77b-70b47a18f878/agent",
+  "passed": true,
+  "cases": [
+    {
+      "name": "generation",
+      "passed": true,
+      "responseId": "resp_037cd8bbae519faf006af4b7ddc66c81939be141c46edd8290",
+      "toolCalls": [
+        {
+          "type": "mcp_call",
+          "server_label": "ge_vernova_fleet",
+          "name": "DataAgent_GE_Vernova_Fleet_Advisor",
+          "status": "completed",
+          "arguments": "{\"userQuestion\":\"Total Generation MWh for January 1 through March 31, 2026 inclusive\"}",
+          "output": "{ \"response\": \"Synthetic fleet result from GE Vernova Fleet Performance (Import):\\n\\n- **Total Generation** January 1\u2013March 31, 2026 (inclusive):  \\n  **4,278,237 MWh**\\n\\nScope: entire modeled fleet, all sites and turbines, summed over all daily generation records in that period.\\n\" }"
+        }
+      ],
+      "answer": {
+        "source": "GE Vernova Fleet Advisor synthetic data from GE Vernova Fleet Performance (Import) model",
+        "data": {
+          "generation_mwh": 4278237
+        }
+      }
+    },
+    {
+      "name": "january-generation-by-site",
+      "passed": true,
+      "responseId": "resp_05fbfad7f2dfdaf1006af4b7ef9240819796795120390be2db",
+      "toolCalls": [
+        {
+          "type": "mcp_call",
+          "server_label": "ge_vernova_fleet",
+          "name": "DataAgent_GE_Vernova_Fleet_Advisor",
+          "status": "completed",
+          "arguments": "{\"userQuestion\":\"Total Generation MWh by Site Name for January 1 through January 31, 2026 inclusive.\"}",
+          "output": "{ \"response\": \"Here are the results for **Total Generation MWh by Site Name** for **January 1\u201331, 2026** (inclusive):\\n\\n- Coastal Horizon: **246,279 MWh**\\n- Desert Vista: **247,493 MWh**\\n- Highland Point: **244,060 MWh**\\n- Lakeside: **244,998 MWh**\\n- Prairie Ridge: **244,996 MWh**\\n- Riverbend: **245,724 MWh**\\n\\n**Details**  \\n- Metric: Total **Generation MWh** (summed over the period)  \\n- Grouping: **Site Name**  \\n- Period: **2026-01-01 through 2026-01-31**, inclusive  \\n- Source: **GE Vernova Fleet Performance (Import)** semantic model  \\n- Note: Values are from a **synthetic demonstration dataset**.\\n\" }"
+        }
+      ],
+      "answer": {
+        "source": "GE Vernova Fleet Advisor synthetic demonstration dataset from GE Vernova Fleet Performance (Import) semantic model",
+        "data": {
+          "Coastal Horizon": 246279,
+          "Desert Vista": 247493,
+          "Highland Point": 244060,
+          "Lakeside": 244998,
+          "Prairie Ridge": 244996,
+          "Riverbend": 245724
+        }
+      }
+    },
+    {
+      "name": "january-top-downtime",
+      "passed": true,
+      "responseId": "resp_0074657b9319f22b006af4b805872c819081eb1336feedab7f",
+      "toolCalls": [
+        {
+          "type": "mcp_call",
+          "server_label": "ge_vernova_fleet",
+          "name": "DataAgent_GE_Vernova_Fleet_Advisor",
+          "status": "completed",
+          "arguments": "{\"userQuestion\":\"Which five turbines had the most Downtime Hours for January 1 through January 31, 2026 inclusive? Sort downtime descending, then turbine name ascending for ties. Return data as an array of objects with exactly \\\"Turbine Name\\\" and \\\"Downtime Hours\\\".\"}",
+          "output": "{ \"response\": \"[\\r\\n  { \\\"Turbine Name\\\": \\\"Turbine 05\\\", \\\"Downtime Hours\\\": 80 },\\r\\n  { \\\"Turbine Name\\\": \\\"Turbine 11\\\", \\\"Downtime Hours\\\": 80 },\\r\\n  { \\\"Turbine Name\\\": \\\"Turbine 17\\\", \\\"Downtime Hours\\\": 80 },\\r\\n  { \\\"Turbine Name\\\": \\\"Turbine 23\\\", \\\"Downtime Hours\\\": 80 },\\r\\n  { \\\"Turbine Name\\\": \\\"Turbine 04\\\", \\\"Downtime Hours\\\": 79 }\\r\\n]\\r\\n\\r\\nSource: Synthetic GE Vernova Fleet Performance (Import) semantic model, Daily Generation table.  \\r\\nPeriod: 2026-01-01 through 2026-01-31 inclusive.  \\r\\nUnits: Downtime Hours.\\n\" }"
+        }
+      ],
+      "answer": {
+        "source": "GE Vernova Fleet Advisor synthetic data from GE Vernova Fleet Performance (Import) semantic model, Daily Generation table, for January 1 through January 31, 2026 inclusive.",
+        "data": [
+          {
+            "Turbine Name": "Turbine 05",
+            "Downtime Hours": 80
+          },
+          {
+            "Turbine Name": "Turbine 11",
+            "Downtime Hours": 80
+          },
+          {
+            "Turbine Name": "Turbine 17",
+            "Downtime Hours": 80
+          },
+          {
+            "Turbine Name": "Turbine 23",
+            "Downtime Hours": 80
+          },
+          {
+            "Turbine Name": "Turbine 04",
+            "Downtime Hours": 79
+          }
+        ]
+      }
+    },
+    {
+      "name": "maintenance",
+      "passed": true,
+      "responseId": "resp_022e58d96f56d19b006af4b82164f88190883f8cb2de4976e8",
+      "toolCalls": [
+        {
+          "type": "mcp_call",
+          "server_label": "ge_vernova_fleet",
+          "name": "DataAgent_GE_Vernova_Fleet_Advisor",
+          "status": "completed",
+          "arguments": "{\"userQuestion\":\"Maintenance Cost in USD and Maintenance Event Count by site and for the fleet for January 1 through March 31, 2026 inclusive. Include open and completed events. Return data as {\\\"sites\\\": {site_name: {\\\"Maintenance Cost\\\": number, \\\"Maintenance Event Count\\\": number}}, \\\"fleet\\\": {\\\"Maintenance Cost\\\": number, \\\"Maintenance Event Count\\\": number}}. Include all six sites.\"}",
+          "output": "{ \"response\": \"{\\n  \\\"sites\\\": {\\n    \\\"Coastal Horizon\\\": {\\n      \\\"Maintenance Cost\\\": 62142,\\n      \\\"Maintenance Event Count\\\": 12\\n    },\\n    \\\"Desert Vista\\\": {\\n      \\\"Maintenance Cost\\\": 54870,\\n      \\\"Maintenance Event Count\\\": 12\\n    },\\n    \\\"Highland Point\\\": {\\n      \\\"Maintenance Cost\\\": 75294,\\n      \\\"Maintenance Event Count\\\": 12\\n    },\\n    \\\"Lakeside\\\": {\\n      \\\"Maintenance Cost\\\": 52446,\\n      \\\"Maintenance Event Count\\\": 12\\n    },\\n    \\\"Prairie Ridge\\\": {\\n      \\\"Maintenance Cost\\\": 55566,\\n      \\\"Maintenance Event Count\\\": 12\\n    },\\n    \\\"Riverbend\\\": {\\n      \\\"Maintenance Cost\\\": 68718,\\n      \\\"Maintenance Event Count\\\": 12\\n    }\\n  },\\n  \\\"fleet\\\": {\\n    \\\"Maintenance Cost\\\": 369036,\\n    \\\"Maintenance Event Count\\\": 72\\n  },\\n  \\\"meta\\\": {\\n    \\\"period_start\\\": \\\"2026-01-01\\\",\\n    \\\"period_end\\\": \\\"2026-03-31\\\",\\n    \\\"currency\\\": \\\"USD\\\",\\n    \\\"status_included\\\": [\\\"Open\\\", \\\"Completed\\\"],\\n    \\\"source\\\": \\\"Synthetic demo \u2013 GE Vernova Fleet Performance (Import)\\\"\\n  }\\n}\\n\" }"
+        }
+      ],
+      "answer": {
+        "source": "GE Vernova Fleet Advisor synthetic data from GE Vernova Fleet Performance (Import) model",
+        "data": {
+          "sites": {
+            "Coastal Horizon": {
+              "Maintenance Cost": 62142,
+              "Maintenance Event Count": 12
+            },
+            "Desert Vista": {
+              "Maintenance Cost": 54870,
+              "Maintenance Event Count": 12
+            },
+            "Highland Point": {
+              "Maintenance Cost": 75294,
+              "Maintenance Event Count": 12
+            },
+            "Lakeside": {
+              "Maintenance Cost": 52446,
+              "Maintenance Event Count": 12
+            },
+            "Prairie Ridge": {
+              "Maintenance Cost": 55566,
+              "Maintenance Event Count": 12
+            },
+            "Riverbend": {
+              "Maintenance Cost": 68718,
+              "Maintenance Event Count": 12
+            }
+          },
+          "fleet": {
+            "Maintenance Cost": 369036,
+            "Maintenance Event Count": 72
+          }
+        }
+      }
+    },
+    {
+      "name": "capacity-factors",
+      "passed": true,
+      "responseId": "resp_08bd678eb09e3b1e006af4b84e3a448196899fb4d248b8d4d6",
+      "toolCalls": [
+        {
+          "type": "mcp_call",
+          "server_label": "ge_vernova_fleet",
+          "name": "DataAgent_GE_Vernova_Fleet_Advisor",
+          "status": "completed",
+          "arguments": "{\"userQuestion\":\"EVALUATE SUMMARIZECOLUMNS('Site'[Site Name], DATESBETWEEN('Date'[Date], DATE(2026,1,1), DATE(2026,3,31)), \\\"Capacity Factor Percent\\\", FORMAT([Capacity Factor %] * 100, \\\"0.000000\\\")) ORDER BY 'Site'[Site Name] ASC\"}",
+          "output": "{ \"response\": \"Here are the synthetic results for your DAX query over January 1\u2013March 31, 2026:\\n\\nSite Name | Capacity Factor Percent\\n---------|-------------------------\\nCoastal Horizon | 60.111869\\nDesert Vista | 60.145960\\nHighland Point | 59.960606\\nLakeside | 59.936869\\nPrairie Ridge | 60.017424\\nRiverbend | 59.948232\\n\\nNotes:\\n- Period: 2026-01-01 through 2026-03-31 (inclusive).\\n- Metric: `[Capacity Factor %] * 100`, formatted as `\\\"0.000000\\\"`.\\n- Source: GE Vernova Fleet Performance (Import) semantic model, synthetic demo data.\\n\" }"
+        }
+      ],
+      "answer": {
+        "source": "GE Vernova Fleet Advisor synthetic data from GE Vernova Fleet Performance (Import) semantic model for January 1 through March 31, 2026 inclusive.",
+        "data": {
+          "Coastal Horizon": 60.111869,
+          "Desert Vista": 60.14596,
+          "Highland Point": 59.960606,
+          "Lakeside": 59.936869,
+          "Prairie Ridge": 60.017424,
+          "Riverbend": 59.948232
+        }
+      }
+    }
+  ],
+  "savedAgent": {
+    "object": "agent",
+    "id": "ge-vernova-fleet-advisor",
+    "name": "ge-vernova-fleet-advisor",
+    "state": "enabled",
+    "configuration_state": "enabled",
+    "versions": {
+      "latest": {
+        "metadata": {},
+        "object": "agent.version",
+        "id": "ge-vernova-fleet-advisor:1",
+        "name": "ge-vernova-fleet-advisor",
+        "version": "1",
+        "description": "Synthetic fleet analytics delegated to the published Fabric data agent.",
+        "created_at": 1794421081,
+        "definition": {
+          "kind": "prompt",
+          "model": "gpt-4.1-mini",
+          "instructions": "You are the GE Vernova Fleet Advisor for a synthetic demonstration.\nAll sites, turbines, generation, downtime, and costs are fictional, not operational data.\nFor every fleet-data question, call the GE Vernova Fleet Advisor Fabric IQ tool.\nIt uses the published Fabric data agent and its existing ontology-connected Import model.\nNever replace this tool with your own knowledge, a guessed result, or a direct data source.\nPreserve the user's explicit date range, units, names, precision, and requested tie ordering.\nUse existing model measures, including Capacity Factor %, rather than averaging percentages.\nMaintenance costs include both open and completed events unless explicitly requested otherwise.\nState the dates, units, and Fabric source in your answer, and identify the data as synthetic.\nIf the question lacks necessary dates or is ambiguous, ask for clarification.\nIf the tool fails, is unauthorized, or requires OAuth consent, state that clearly.\nDo not present estimates or memorized values as query results.\n",
+          "temperature": 0,
+          "tools": [
+            {
+              "type": "fabric_iq_preview",
+              "project_connection_id": "/subscriptions/c2eaee16-e4b6-4608-b937-9005553d66f7/resourceGroups/rg-ge-vernova-foundry/providers/Microsoft.CognitiveServices/accounts/ai-ge-vernova-c2eaee16/projects/ge-vernova-fleet/connections/ge-vernova-fabric",
+              "server_label": "ge_vernova_fleet",
+              "server_url": "https://api.fabric.microsoft.com/v1/mcp/workspaces/aeeddd08-ac34-4681-b9cd-c84424c97f3e/dataagents/664cedb7-472e-485c-a77b-70b47a18f878/agent",
+              "require_approval": "never"
+            }
+          ]
+        },
+        "draft": false,
+        "status": "active",
+        "instance_identity": {
+          "principal_id": "8c683aa5-7038-49b4-8cc3-7884f4e25c2c",
+          "client_id": "8c683aa5-7038-49b4-8cc3-7884f4e25c2c"
+        },
+        "blueprint": {
+          "principal_id": "33af957b-39eb-4153-92e8-665731394045",
+          "client_id": "eb3ed8d4-1737-484a-a11f-1012055b6d3c"
+        },
+        "blueprint_reference": {
+          "type": "ManagedAgentIdentityBlueprint",
+          "blueprint_id": "ge-vernova-fleet-advisor-01092"
+        },
+        "agent_guid": "010925b9-f822-45fb-8cdd-b0470e4be91b"
+      }
+    },
+    "agent_endpoint": {
+      "version_selector": {
+        "version_selection_rules": [
+          {
+            "type": "FixedRatio",
+            "agent_version": "@latest",
+            "traffic_percentage": 100
+          }
+        ]
+      },
+      "protocols": [
+        "responses"
+      ],
+      "protocol_configuration": {
+        "responses": {}
+      },
+      "authorization_schemes": [
+        {
+          "type": "Entra",
+          "isolation_key_source": {
+            "kind": "Entra"
+          }
+        }
+      ],
+      "publish_approval_status": "not_published"
+    },
+    "instance_identity": {
+      "principal_id": "8c683aa5-7038-49b4-8cc3-7884f4e25c2c",
+      "client_id": "8c683aa5-7038-49b4-8cc3-7884f4e25c2c",
+      "status": "active"
+    },
+    "blueprint": {
+      "principal_id": "33af957b-39eb-4153-92e8-665731394045",
+      "client_id": "eb3ed8d4-1737-484a-a11f-1012055b6d3c",
+      "status": "active"
+    },
+    "blueprint_reference": {
+      "type": "ManagedAgentIdentityBlueprint",
+      "blueprint_id": "ge-vernova-fleet-advisor-01092"
+    }
+  }
+}

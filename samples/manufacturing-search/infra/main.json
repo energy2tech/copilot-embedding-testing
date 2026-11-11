@@ -1,0 +1,101 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": { "type": "string", "defaultValue": "eastus", "allowedValues": ["eastus"] },
+    "searchName": { "type": "string" },
+    "openaiName": { "type": "string" },
+    "principalId": { "type": "string" }
+  },
+  "variables": {
+    "searchId": "[resourceId('Microsoft.Search/searchServices', parameters('searchName'))]",
+    "openaiId": "[resourceId('Microsoft.CognitiveServices/accounts', parameters('openaiName'))]",
+    "searchServiceRole": "7ca78c08-252a-4471-8644-bb5ff32d4ba0",
+    "searchDataRole": "8ebe5a00-799e-43f5-93ac-243d3dce84a7",
+    "openaiRole": "5e0bd9bd-7b93-4f28-af87-19fc36ad61bd"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Search/searchServices",
+      "apiVersion": "2023-11-01",
+      "name": "[parameters('searchName')]",
+      "location": "[parameters('location')]",
+      "tags": { "sample": "manufacturing-search" },
+      "sku": { "name": "free" },
+      "properties": {
+        "replicaCount": 1,
+        "partitionCount": 1,
+        "hostingMode": "default",
+        "publicNetworkAccess": "enabled",
+        "disableLocalAuth": true
+      }
+    },
+    {
+      "type": "Microsoft.CognitiveServices/accounts",
+      "apiVersion": "2024-10-01",
+      "name": "[parameters('openaiName')]",
+      "location": "[parameters('location')]",
+      "tags": { "sample": "manufacturing-search" },
+      "kind": "OpenAI",
+      "sku": { "name": "S0" },
+      "properties": {
+        "customSubDomainName": "[parameters('openaiName')]",
+        "publicNetworkAccess": "Enabled",
+        "disableLocalAuth": true
+      }
+    },
+    {
+      "type": "Microsoft.CognitiveServices/accounts/deployments",
+      "apiVersion": "2024-10-01",
+      "name": "[format('{0}/text-embedding-3-small', parameters('openaiName'))]",
+      "dependsOn": ["[variables('openaiId')]"],
+      "sku": { "name": "Standard", "capacity": 10 },
+      "properties": {
+        "model": { "format": "OpenAI", "name": "text-embedding-3-small", "version": "1" },
+        "versionUpgradeOption": "NoAutoUpgrade"
+      }
+    },
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "name": "[guid(variables('searchId'), parameters('principalId'), variables('searchServiceRole'))]",
+      "scope": "[variables('searchId')]",
+      "dependsOn": ["[variables('searchId')]"],
+      "properties": {
+        "principalId": "[parameters('principalId')]",
+        "principalType": "User",
+        "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('searchServiceRole'))]"
+      }
+    },
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "name": "[guid(variables('searchId'), parameters('principalId'), variables('searchDataRole'))]",
+      "scope": "[variables('searchId')]",
+      "dependsOn": ["[variables('searchId')]"],
+      "properties": {
+        "principalId": "[parameters('principalId')]",
+        "principalType": "User",
+        "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('searchDataRole'))]"
+      }
+    },
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "name": "[guid(variables('openaiId'), parameters('principalId'), variables('openaiRole'))]",
+      "scope": "[variables('openaiId')]",
+      "dependsOn": ["[variables('openaiId')]"],
+      "properties": {
+        "principalId": "[parameters('principalId')]",
+        "principalType": "User",
+        "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('openaiRole'))]"
+      }
+    }
+  ],
+  "outputs": {
+    "searchEndpoint": { "type": "string", "value": "[format('https://{0}.search.windows.net', parameters('searchName'))]" },
+    "openaiEndpoint": { "type": "string", "value": "[reference(variables('openaiId'), '2024-10-01').endpoint]" },
+    "embeddingDeployment": { "type": "string", "value": "text-embedding-3-small" },
+    "indexName": { "type": "string", "value": "manufacturing-products" }
+  }
+}

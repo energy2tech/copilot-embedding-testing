@@ -1,0 +1,50 @@
+{
+  "status": "Deployed and verified",
+  "verifiedDate": "2026-11-11",
+  "resourceGroup": "manufacturing-search-demo",
+  "region": "eastus",
+  "search": {
+    "name": "srch-mfg-45b8aab5e6",
+    "endpoint": "https://srch-mfg-45b8aab5e6.search.windows.net",
+    "sku": "free",
+    "provisioningState": "Succeeded",
+    "status": "running",
+    "localAuthenticationDisabled": true,
+    "index": "manufacturing-products",
+    "pdfCount": 5,
+    "chunkCount": 10
+  },
+  "embeddings": {
+    "account": "aoai-mfg-45b8aab5e6",
+    "deployment": "text-embedding-3-small",
+    "modelVersion": "1",
+    "sku": "Standard",
+    "capacity": 10,
+    "dimensions": 1536,
+    "provisioningState": "Succeeded",
+    "localAuthenticationDisabled": true,
+    "billing": "Pay per token; no hard spending cap"
+  },
+  "verification": {
+    "localTestsPassed": 3,
+    "liveRetrievalChecksPassed": 15,
+    "modes": ["keyword", "vector", "hybrid"],
+    "rankOneProductMatches": true,
+    "sourceFilenameAndPageVerified": true,
+    "resourceScopedRolesVerified": true,
+    "dependencyCheckPassed": true,
+    "pythonCompilePassed": true,
+    "sdkIndexSerializationPassed": true,
+    "powerShellParsePassed": true,
+    "evidence": "verification.json"
+  },
+  "example": {
+    "query": "Which product monitors bearing vibration?",
+    "mode": "hybrid",
+    "topProduct": "SENSOR-500",
+    "sourceFile": "SENSOR-500.pdf",
+    "page": 1
+  },
+  "secretsRecorded": false,
+  "existingDemoResourcesChanged": false
+}
